@@ -1,32 +1,112 @@
 body {
-    background-image: url('./assets/images/light-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    min-height: 100vh;
+  margin: 0;
+  min-height: 100vh;
+  color: #000000;
+  font-family: 'Nunito', sans-serif;
+}
+
+// body::before {
+//   content: '';
+//   position: fixed;
+//   inset: 0;
+//   background-image: url('./assets/images/bg5.jpg');
+//   background-size: cover;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   z-index: -1;
+// }
+
+.navbar-brand {
+  font-family: cursive;
+  font-size: 30px;
+  font-weight: bolder;
+  background-image: radial-gradient(rgb(5, 24, 82), rgb(116, 46, 213));
+  color: transparent;
+  background-clip: text;
 }
 
 body.dark-mode {
-    background-image: url('./assets/images/dark-bg.jpg');
-
-    color: #ffffff;
+  color: #ffffff;
 }
 
+.navbar {
+  background-color: rgba(255, 255, 255, 0.566) !important;
+  backdrop-filter: blur(6px);
+}
 body.dark-mode .navbar {
-    background-color: #1f1f1f !important;
+  background-color: rgba(0, 0, 0, 0.505) !important;
+  color: #ffffff;
 }
 
-body.dark-mode .nav-link {
-    color: #ffffff;
+body.dark-mode .nav-link,
+body.dark-mode .btn-outline-dark {
+  color: #ffffff;
+  border-color: #ffffff;
 }
 
-body.dark-mode a {
-    border-color: #ffffff;
-    color: #ffffff;
+body.dark-mode .navbar-brand {
+  background-image: radial-gradient(rgb(20, 51, 146), rgb(129, 68, 215));
+}
+body.dark-mode form {
+  background-color: #1b1b1b;
+  color: #ffffff;
 }
 
-body.dark-mode button {
-    border-color: #ffffff;
-    color: #ffffff;
+body.dark-mode form input {
+  background-color: #242427;
+  color: #ffffff;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.314);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.559) 0px 3px 12px;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+body.dark-mode .card {
+  color: #ffffff;
+  background-color: rgba(197, 197, 197, 0.186);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.559) 0px 3px 12px;
+}
+
+body.dark-mode .btn-secondary {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.bg-container {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+body.dark-mode .bg-container {
+  background-color: rgba(0, 0, 0, 0.65);
+  background-blend-mode: darken;
+}
+/* thumbnails */
+.bg-thumb {
+  width: 70px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.bg-thumb:hover {
+  transform: scale(1.05);
+}
+
+.bg-thumb.active {
+  border-color: #0d6efd; /* bootstrap primary */
 }
