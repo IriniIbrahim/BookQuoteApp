@@ -13,8 +13,10 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Add New Quote</h5>
-          <button type="button" class="btn-close" (click)="showModal = false"></button>
+          <h5 class="modal-title">
+            {{ isEditMode ? 'Edit Quote' : 'Add New Quote' }}
+          </h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
         </div>
         <form [formGroup]="quoteForm" (ngSubmit)="onSubmit()">
           <div class="modal-body">
@@ -28,11 +30,11 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="showModal = false">
-              Close
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">
+              Cancel
             </button>
-            <button type="submit" class="btn btn-primary" [disabled]="quoteForm.invalid">
-              Save Quote
+            <button class="btn btn-primary" (click)="onSubmit()">
+              {{ isEditMode ? 'Save Changes' : 'Add Quote' }}
             </button>
           </div>
         </form>
@@ -53,7 +55,7 @@
             <i class="fa-solid fa-user-pen"></i> {{ quote.author }}
           </p>
           <div class="card-footer bg-transparent">
-            <button class="btn btn-sm btn-primary me-2" >
+            <button class="btn btn-sm btn-primary me-2" (click)="openEditModal(quote)">
               <i class="fas fa-edit"></i> Edit
             </button>
             <button class="btn btn-sm btn-danger" (click)="quote.id && deleteQuote(quote.id)">

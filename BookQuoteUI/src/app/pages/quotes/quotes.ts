@@ -30,21 +30,46 @@ export class Quotes implements OnInit {
   ];
 
   quoteForm!: FormGroup;
+
   showModal = false;
+  isEditMode = false;
+  editingQuoteId: number | null = null;
 
   constructor(private fb: FormBuilder) {}
-
+  resetModalState(): void {
+    this.isEditMode = false;
+    this.editingQuoteId = null;
+    this.quoteForm.reset();
+  }
   ngOnInit(): void {
     this.quoteForm = this.fb.group({
       text: ['', Validators.required],
       author: ['', Validators.required],
     });
   }
-
+  openAddModal() {
+    this.closeModal();
+    this.isEditMode = false;
+    this.editingQuoteId = null;
+    this.quoteForm.reset();
+  }
+  openEditModal(quote: Quote) {
+    this.closeModal();
+    this.isEditMode = true;
+    this.editingQuoteId = quote.id ?? null;
+    this.quoteForm.patchValue({
+      text: quote.text,
+      author: quote.author,
+    });
+    this.showModal = true;
+  }
+  closeModal(): void {
+    this.showModal = false;
+    this.resetModalState();
+  }
   deleteQuote(id: number): void {
     this.quote = this.quote.filter((q) => q.id !== id);
   }
-
   onSubmit() {
     if (this.quoteForm.valid) {
       const { text, author } = this.quoteForm.value;
@@ -56,7 +81,8 @@ export class Quotes implements OnInit {
       });
 
       this.quoteForm.reset();
-      this.showModal = false; // close the modal
+      this.showModal = false;
     }
   }
 }
+

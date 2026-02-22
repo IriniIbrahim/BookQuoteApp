@@ -3,19 +3,15 @@
     <i class="fa-solid fa-circle-plus"></i> Add New Book
   </button>
 
-  <div
-    class="modal fade show"
-    tabindex="-1"
-    [class.show]="showModal"
-    [style.display]="showModal ? 'block' : 'none'"
-    aria-labelledby="addBookModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade show" tabindex="-1" [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'"
+    aria-labelledby="addBookModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Add New Book</h5>
-          <button type="button" class="btn-close" (click)="showModal = false"></button>
+          <h5 class="modal-title">
+            {{ isEditMode ? 'Edit Book' : 'Add New Book' }}
+          </h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
         </div>
         <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
           <div class="modal-body">
@@ -29,20 +25,15 @@
             </div>
             <div class="mb-3">
               <label for="publicationDate" class="form-label">Publication Date</label>
-              <input
-                type="date"
-                class="form-control"
-                formControlName="publicationDate"
-                id="publicationDate"
-              />
+              <input type="date" class="form-control" formControlName="publicationDate" id="publicationDate" />
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="showModal = false">
-              Close
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">
+              Cancel
             </button>
-            <button type="submit" class="btn btn-primary" [disabled]="bookForm.invalid">
-              Save Book
+            <button class="btn btn-primary" (click)="onSubmit()">
+              {{ isEditMode ? 'Save Changes' : 'Add Book' }}
             </button>
           </div>
         </form>
@@ -52,19 +43,23 @@
 
   <div class="modal-backdrop fade show" *ngIf="showModal"></div>
   <div class="row mt-4">
-    <div class="col-md-4 col-lg-3  m-2" *ngFor="let book of books">
+    <div class="col-md-4 col-lg-3 m-2" *ngFor="let book of activeBooks">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
           <div class="card-header">
             <h5 class="card-title">{{ book.title }}</h5>
           </div>
           <p class="card-subtitle mt-3"><i class="fa-solid fa-user-pen"></i> {{ book.author }}</p>
-          <p class="card-text"><i class="fa-solid fa-calendar-days"></i> {{ book.publicationDate | date: 'mediumDate' }}</p>
-  <div class="card-footer bg-transparent">
-            <button class="btn btn-sm btn-primary me-2" (click)="editBook(book)">
+          <p class="card-text">
+            <i class="fa-solid fa-calendar-days"></i>
+            {{ book.publicationDate | date: 'mediumDate' }}
+          </p>
+          <div class="card-footer bg-transparent">
+            <button class="btn btn-sm btn-primary me-2" (click)="openEditModal(book)">
               <i class="fas fa-edit"></i> Edit
             </button>
-            <button class="btn btn-sm btn-danger" (click)="book.id && deleteBook(book.id)">
+
+            <button class="btn btn-sm btn-danger" (click)="archiveBook(book.id)">
               <i class="fas fa-trash"></i> Delete
             </button>
           </div>

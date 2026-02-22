@@ -16,14 +16,20 @@ export class App {
     'backgrounds/bg3.jpg',
     'backgrounds/bg4.jpg',
     'backgrounds/bg5.jpg',
+    'backgrounds/bg6.jpg',
+    'backgrounds/bg7.jpg',
+    "backgrounds/bg8.jpg",
   ];
 
   selectedBackground: string | null = null;
-  ngOnInit(): void {
-    this.selectedBackground = localStorage.getItem('bgImage');
+  ngOnInit() {
+    const defaultBg = this.backgrounds[0];
+    this.setBackground(defaultBg);
   }
   setBackground(bg: string) {
+    document.body.style.setProperty('--app-bg', `url(${bg})`);
     this.selectedBackground = bg;
-    localStorage.setItem('bgImage', bg);
   }
 }
+
+
