@@ -1,0 +1,68 @@
+<div class="container mt-4">
+    <h2 class="mb-4"><i class="fas fa-box-archive"></i> Archive</h2>
+
+    <div class="btn-group mb-4" role="group">
+        <button class="btn" [class.btn-primary]="selectedFilter==='all'"
+            [class.btn-outline-primary]="selectedFilter!=='all'" (click)="filterByType('all')">
+            <i class="fas fa-list"></i> All
+        </button>
+        <button class="btn" [class.btn-primary]="selectedFilter==='books'"
+            [class.btn-outline-primary]="selectedFilter!=='books'" (click)="filterByType('books')">
+            <i class="fas fa-book"></i> Books
+        </button>
+        <button class="btn" [class.btn-primary]="selectedFilter==='quotes'"
+            [class.btn-outline-primary]="selectedFilter!=='quotes'" (click)="filterByType('quotes')">
+            <i class="fas fa-quote-left"></i> Quotes
+        </button>
+    </div>
+
+    <div *ngIf="isLoading" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div *ngIf="!isLoading && filteredItems.length === 0" class="text-center my-5">
+        <i class="fas fa-archive fa-3x text-muted mb-3"></i>
+        <p class="text-muted">No archived items</p>
+    </div>
+
+    <div class="row" *ngIf="!isLoading && filteredItems.length > 0">
+        <div class="col-12">
+            <div class="list-group">
+                <div class="list-group-item list-group-item-action" *ngFor="let item of filteredItems">
+                    <div class="d-flex w-100 justify-content-between align-items-start">
+                        <div>
+                            <h5 class="mb-1">
+                                <i
+                                    [class]=" 'title' in item ? 'fas fa-book text-primary' : 'fas fa-quote-left text-info' "></i>
+                                {{ 'title' in item ? item.title : item.text | slice:0:30 }}
+                            </h5>
+                            <p class="mb-1">
+                                <span class="badge bg-danger me-2"><i class="fas fa-trash"></i> Deleted</span>
+                                <span class="badge bg-secondary">{{ 'title' in item ? 'Book' : 'Quote' }}</span>
+                            </p>
+                            <small class="text-muted">
+                                <i class="fas fa-clock"></i> Archived
+                            </small>
+
+                            <div class="mt-2" *ngIf="'title' in item">
+                                <small>
+                                    <strong>Author:</strong> {{ item.author }}<br>
+                                    <strong>Published:</strong> {{ item.publicationDate | date:'mediumDate' }}
+                                </small>
+                            </div>
+                            <div class="mt-2" *ngIf="'text' in item">
+                                <small>
+                                    <strong>Author:</strong> {{ item.author }}<br>
+                                    <em>"{{ item.text }}"</em>
+                                </small>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
