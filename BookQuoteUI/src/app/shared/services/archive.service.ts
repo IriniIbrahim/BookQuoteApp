@@ -16,10 +16,10 @@ export class ArchiveService {
   }
 
   getBooks(): Book[] {
-    return this.archivedItems.filter((i) => 'title' in i) as Book[];
+    return this.archivedItems.filter(i => 'title' in i) as Book[];
   }
 
   getQuotes(): Quote[] {
-    return this.archivedItems.filter((i) => 'text' in i) as Quote[];
+    return this.archivedItems.filter(i => 'text' in i) as Quote[];
   }
 }

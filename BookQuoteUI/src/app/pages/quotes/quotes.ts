@@ -20,13 +20,15 @@ export class Quotes implements OnInit {
     {
       id: 1,
       text: 'We are what we repeatedly do. Excellence, then, is not an act, but a habit',
-      author: 'Aristotle',
-    },
+      author: 'Aristotle'    },
     {
       id: 2,
       text: 'A comfort zone is a beautiful place – but nothing ever grows there',
-      author: 'James Clear',
-    },
+      author: 'James Clear'    },
+    {
+      id: 3,
+      text: 'A comfort zone is a beautiful place – but nothing ever grows there',
+      author: 'James Clear'    },
   ];
 
   quoteForm!: FormGroup;
