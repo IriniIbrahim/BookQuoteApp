@@ -13,7 +13,7 @@
           </h5>
           <button type="button" class="btn-close" (click)="closeModal()"></button>
         </div>
-        <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+        <form class="add-new-item-form" [formGroup]="bookForm" (ngSubmit)="onSubmit()">
           <div class="modal-body">
             <div class="mb-3">
               <label for="title" class="form-label">Title</label>
@@ -41,30 +41,34 @@
     </div>
   </div>
 
-  <div class="modal-backdrop fade show" *ngIf="showModal"></div>
+  @if (showModal) {
+    <div class="modal-backdrop fade show"></div>
+  }
   <div class="row mt-4">
-    <div class="col-md-4 col-lg-3 m-2" *ngFor="let book of activeBooks">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <div class="card-header">
-            <h5 class="card-title">{{ book.title }}</h5>
-          </div>
-          <p class="card-subtitle mt-3"><i class="fa-solid fa-user-pen"></i> {{ book.author }}</p>
-          <p class="card-text">
-            <i class="fa-solid fa-calendar-days"></i>
-            {{ book.publicationDate | date: 'mediumDate' }}
-          </p>
-          <div class="card-footer bg-transparent">
-            <button class="btn btn-sm btn-primary me-2" (click)="openEditModal(book)">
-              <i class="fas fa-edit"></i> Edit
-            </button>
+    @for (book of activeBooks; track book.id) {
+      <div class="col-md-4 col-lg-3 m-2">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <div class="card-header">
+              <h5 class="card-title">{{ book.title }}</h5>
+            </div>
+            <p class="card-subtitle mt-3"><i class="fa-solid fa-user-pen"></i> {{ book.author }}</p>
+            <p class="card-text">
+              <i class="fa-solid fa-calendar-days"></i>
+              {{ book.publicationDate | date: 'mediumDate' }}
+            </p>
+            <div class="card-footer bg-transparent">
+              <button class="btn btn-sm btn-primary me-2" (click)="openEditModal(book)">
+                <i class="fas fa-edit"></i> Edit
+              </button>
 
-            <button class="btn btn-sm btn-danger" (click)="archiveBook(book.id)">
-              <i class="fas fa-trash"></i> Delete
-            </button>
+              <button class="btn btn-sm btn-danger" (click)="archiveBook(book.id)">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    }
   </div>
 </div>

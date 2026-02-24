@@ -18,7 +18,7 @@
           </h5>
           <button type="button" class="btn-close" (click)="closeModal()"></button>
         </div>
-        <form [formGroup]="quoteForm" (ngSubmit)="onSubmit()">
+        <form class="add-new-item-form" [formGroup]="quoteForm" (ngSubmit)="onSubmit()">
           <div class="modal-body">
             <div class="mb-3">
               <label for="text" class="form-label">Quote Text</label>
