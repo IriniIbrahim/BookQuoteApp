@@ -1,25 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Book } from '../models/book';
-import { Quote } from '../models/quote';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ArchiveLog } from '../models/archive-log';
 
 @Injectable({ providedIn: 'root' })
 export class ArchiveService {
-  private archivedItems: (Book | Quote)[] = [];
+  private baseUrl = 'http://localhost:5073/api/archive';
 
-  add(item: Book | Quote) {
-    item.archived = true;
-    this.archivedItems.push(item);
-  }
+  constructor(private http: HttpClient) {}
 
-  getAll(): (Book | Quote)[] {
-    return [...this.archivedItems];
-  }
-
-  getBooks(): Book[] {
-    return this.archivedItems.filter(i => 'title' in i) as Book[];
-  }
-
-  getQuotes(): Quote[] {
-    return this.archivedItems.filter(i => 'text' in i) as Quote[];
+  getAll(): Observable<ArchiveLog[]> {
+    return this.http.get<ArchiveLog[]>(this.baseUrl);
   }
 }

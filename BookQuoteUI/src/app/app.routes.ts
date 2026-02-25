@@ -10,7 +10,11 @@ export const routes: Routes = [
   { path: '', component: Home },
   { path: 'books', component: Books },
   { path: 'quotes', component: Quotes },
-  { path: 'archive', component: Archive },
+  {
+  path: 'archive',
+  loadComponent: () =>
+    import('./pages/archive/archive').then(m => m.Archive),
+},
   { path: 'login', component: Login },
   { path: 'signup', component: Signup }
 ];

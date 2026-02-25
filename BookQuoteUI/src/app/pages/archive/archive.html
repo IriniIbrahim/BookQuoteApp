@@ -1,66 +1,93 @@
 <div class="container mt-4">
-    <h3><i class="fas fa-box-archive"></i> Archive</h3>
+    <h3>
+        <i class="fas fa-box-archive"></i>
+        Archive
+    </h3>
 
+    <!-- Filters -->
     <div class="btn-group mb-4" role="group">
-        <button class="btn btn-outline-dark" [class.btn-secondary]="selectedFilter==='all'"
-            [class.btn-outline-primary]="selectedFilter!=='all'" (click)="filterByType('all')">
+        <button class="btn" [ngClass]="selectedFilter === 'all' ? 'btn-secondary' : 'btn-outline-primary'"
+            (click)="filterByType('all')">
             <i class="fas fa-list"></i> All
         </button>
-        <button class="btn btn-outline-dark" [class.btn-secondary]="selectedFilter==='books'"
-            [class.btn-outline-primary]="selectedFilter!=='books'" (click)="filterByType('books')">
+
+        <button class="btn" [ngClass]="selectedFilter === 'books' ? 'btn-secondary' : 'btn-outline-primary'"
+            (click)="filterByType('books')">
             <i class="fas fa-book"></i> Books
         </button>
-        <button class="btn btn-outline-dark" [class.btn-secondary]="selectedFilter==='quotes'"
-            [class.btn-outline-primary]="selectedFilter!=='quotes'" (click)="filterByType('quotes')">
+
+        <button class="btn" [ngClass]="selectedFilter === 'quotes' ? 'btn-secondary' : 'btn-outline-primary'"
+            (click)="filterByType('quotes')">
             <i class="fas fa-quote-left"></i> Quotes
         </button>
     </div>
 
+    <!-- Loading -->
     <div *ngIf="isLoading" class="text-center my-5">
-        <div  class="spinner-grow" style="width: 2rem; height: 2rem;" role="status">
-        </div>
+        <div class="spinner-grow" style="width: 2rem; height: 2rem;" role="status"></div>
     </div>
 
-    <div *ngIf="!isLoading && filteredItems.length === 0" class="text-center my-5">
+    <!-- Empty state -->
+    <div *ngIf="!isLoading && items.length === 0" class="text-center my-5">
         <i class="fas fa-archive fa-3x text-muted mb-3"></i>
         <p class="text-muted">No archived items</p>
     </div>
 
-    <div class="row" *ngIf="!isLoading && filteredItems.length > 0">
+    <!-- Archive list -->
+    <div class="row" *ngIf="!isLoading && items.length > 0">
         <div class="col-12">
             <div class="list-group">
-                <div class="list-group-item list-group-item-action" *ngFor="let item of filteredItems">
+
+                <div class="list-group-item list-group-item-action" *ngFor="let item of items">
                     <div class="d-flex w-100 justify-content-between align-items-start">
+
                         <div>
+                            <!-- Title + icon -->
                             <h5 class="mb-1">
-                                <i
-                                    [class]=" 'title' in item ? 'fas fa-book text-primary' : 'fas fa-quote-left text-info' "></i>
-                                {{ 'title' in item ? item.title : item.text | slice:0:30 }}
+                                <i [class]="item.entityType === 'Book'
+                    ? 'fas fa-book text-primary'
+                    : 'fas fa-quote-left text-info'"></i>
+                                {{ item.entityTitle }}
                             </h5>
+
+                            <!-- Badges -->
                             <p class="mb-1">
-                                <span class="badge bg-danger me-2"><i class="fas fa-trash"></i> Deleted</span>
-                                <span class="badge bg-secondary">{{ 'title' in item ? 'Book' : 'Quote' }}</span>
+                                <span class="badge bg-danger me-2">
+                                    <i class="fas fa-trash"></i> Deleted
+                                </span>
+                                <span class="badge bg-secondary">
+                                    {{ item.entityType }}
+                                </span>
                             </p>
-                            <small class="text-muted ">
-                                <i class="fas fa-clock"></i> Archived
+
+                            <!-- Archived date -->
+                            <small class="text-muted">
+                                <i class="fas fa-clock"></i>
+                                Archived {{ item.deletedAt | date:'medium' }}
                             </small>
 
-                            <div class="mt-2" *ngIf="'title' in item">
-                                <small>
-                                    <strong>Author:</strong> {{ item.author }}<br>
-                                    <strong>Published:</strong> {{ item.publicationDate | date:'mediumDate' }}
+                            <!-- Book details -->
+                            <div class="mt-2" *ngIf="item.entityType === 'Book'">
+                                <small *ngIf="parseDetails(item.details) as book">
+                                    <strong>Author:</strong> {{ book.author }}<br />
+                                    <strong>Published:</strong>
+                                    {{ book.publicationDate | date:'mediumDate' }}
                                 </small>
                             </div>
-                            <div class="mt-2" *ngIf="'text' in item">
-                                <small>
-                                    <strong>Author:</strong> {{ item.author }}<br>
-                                    <em>"{{ item.text }}"</em>
+
+                            <!-- Quote details -->
+                            <div class="mt-2" *ngIf="item.entityType === 'Quote'">
+                                <small *ngIf="parseDetails(item.details) as quote">
+                                    <strong>Author:</strong> {{ quote.author }}<br />
+                                    <em>"{{ quote.text }}"</em>
                                 </small>
                             </div>
 
                         </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

@@ -7,7 +7,8 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { Book } from '../../shared/models/book';
+import { BooksService, Book } from '../../shared/services/books.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-books',
@@ -16,36 +17,23 @@ import { Book } from '../../shared/models/book';
   templateUrl: './books.html',
 })
 export class Books implements OnInit {
-  books: Book[] = [
-    {
-      id: 1,
-      title: 'Clean Code',
-      author: 'Robert C. Martin',
-      publicationDate: new Date('2008-01-03'),
-      archived: false,
-    },
-    {
-      id: 2,
-      title: 'Atomic Habits',
-      author: 'James Clear',
-      publicationDate: new Date('2018-01-01'),
-      archived: false,
-    },
-  ];
-
+  books: Book[] = [];
   bookForm!: FormGroup;
 
   showModal = false;
   isEditMode = false;
   editingBookId: number | null = null;
 
-  constructor(private fb: FormBuilder) {}
-  resetModalState(): void {
-    this.isEditMode = false;
-    this.editingBookId = null;
-    this.bookForm.reset();
-  }
+  isLoading = false;
+  errorMessage = '';
+
+  constructor(
+    private fb: FormBuilder,
+    private booksService: BooksService,
+  ) {}
+
   ngOnInit(): void {
+    this.loadBooks();
     this.bookForm = this.fb.group({
       title: ['', Validators.required],
       author: ['', Validators.required],
@@ -53,78 +41,89 @@ export class Books implements OnInit {
     });
   }
 
-  private formatDateForInput(date: string | Date): string {
-    return new Date(date).toISOString().split('T')[0];
+  loadBooks(): void {
+    this.isLoading = true;
+    this.booksService.getAll().subscribe({
+      next: (data) => {
+        this.books = data;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.errorMessage = 'Failed to load books';
+        this.isLoading = false;
+      },
+    });
   }
 
   openAddModal(): void {
     this.isEditMode = false;
     this.editingBookId = null;
-    this.bookForm.reset({
-      title: '',
-      author: '',
-      publicationDate: '',
-    });
-    this.showModal = true; // open modal last
+    this.bookForm.reset();
+    this.showModal = true;
   }
 
   openEditModal(book: Book): void {
     this.isEditMode = true;
     this.editingBookId = book.id;
-    this.bookForm.reset(); // clean previous form
     this.bookForm.patchValue({
       title: book.title,
       author: book.author,
       publicationDate: this.formatDateForInput(book.publicationDate),
     });
-    this.showModal = true; // open modal last
+    this.showModal = true;
   }
 
   closeModal(): void {
     this.showModal = false;
-    // this.isEditMode = false;
-    // this.editingBookId = null;
-    // this.bookForm.reset();
     this.resetModalState();
   }
 
-  // deleteBook(id: number): void {
-  //   this.books = this.books.filter((b) => b.id !== id);
-  // }
-  archiveBook(id: number): void {
-    const book = this.books.find((b) => b.id === id);
-    if (book) {
-      book.archived = true;
-    }
+  resetModalState(): void {
+    this.isEditMode = false;
+    this.editingBookId = null;
+    this.bookForm.reset();
   }
-  get activeBooks(): Book[] {
-    return this.books.filter((book) => !book.archived);
+
+  private formatDateForInput(date: string | Date): string {
+    return new Date(date).toISOString().split('T')[0];
   }
+
   onSubmit(): void {
     if (this.bookForm.invalid) return;
 
     const { title, author, publicationDate } = this.bookForm.value;
 
     if (this.isEditMode && this.editingBookId !== null) {
-      const index = this.books.findIndex((b) => b.id === this.editingBookId);
-
-      if (index !== -1) {
-        this.books[index] = {
-          ...this.books[index],
-          title,
-          author,
-          publicationDate,
-        };
-      }
-    } else {
-      this.books.push({
-        id: Date.now(),
+      const updatedBook: Book = {
+        id: this.editingBookId,
         title,
         author,
         publicationDate,
+        isArchived: false,
+      };
+      this.booksService.update(this.editingBookId, updatedBook).subscribe({
+        next: () => this.loadBooks(),
+        error: () => (this.errorMessage = 'Failed to update book'),
+      });
+    } else {
+      const newBook: Omit<Book, 'id'> = { title, author, publicationDate };
+      this.booksService.add(newBook).subscribe({
+        next: () => this.loadBooks(),
+        error: () => (this.errorMessage = 'Failed to add book'),
       });
     }
 
     this.closeModal();
+  }
+
+  archiveBook(id: number): void {
+    this.booksService.delete(id).subscribe({
+      next: () => this.loadBooks(),
+      error: () => (this.errorMessage = 'Failed to archive book'),
+    });
+  }
+
+  get activeBooks(): Book[] {
+    return this.books.filter((b) => !b.isArchived);
   }
 }

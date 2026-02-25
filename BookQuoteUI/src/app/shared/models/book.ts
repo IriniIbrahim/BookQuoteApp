@@ -3,5 +3,5 @@ export interface Book {
   title: string;
   author: string;
   publicationDate: Date | string;
-  archived?: boolean;
+  isArchived?: boolean;
 }
