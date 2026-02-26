@@ -13,12 +13,11 @@ import { AuthService } from '../../shared/services/auth.service';
 export class MyFavorites implements OnInit {
   allQuotes: Quote[] = [];
   favoriteQuotes: Quote[] = [];
-  maxFavorites = 5;
   userId: string = '';
 
   constructor(
     private quotesService: QuotesService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -40,8 +39,8 @@ export class MyFavorites implements OnInit {
     const key = `favoriteQuotes_${this.userId}`;
     const favorites = localStorage.getItem(key);
     if (favorites) {
-      const ids = JSON.parse(favorites);
-      this.favoriteQuotes = this.allQuotes.filter((q) => ids.includes(q.id));
+      const ids: number[] = JSON.parse(favorites);
+      this.favoriteQuotes = this.allQuotes.filter((q) => ids.includes(q.id!));
     }
   }
 
@@ -53,12 +52,7 @@ export class MyFavorites implements OnInit {
     if (this.isFavorite(quote.id!)) {
       this.favoriteQuotes = this.favoriteQuotes.filter((q) => q.id !== quote.id);
     } else {
-      if (this.favoriteQuotes.length < this.maxFavorites) {
-        this.favoriteQuotes.push(quote);
-      } else {
-        alert(`You can only select up to ${this.maxFavorites} favorite quotes`);
-        return;
-      }
+      this.favoriteQuotes.push(quote);
     }
     this.saveFavorites();
   }

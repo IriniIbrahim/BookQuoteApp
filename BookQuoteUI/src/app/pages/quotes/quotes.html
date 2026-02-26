@@ -67,9 +67,11 @@
             <i class="fa-solid fa-book"></i> {{ quote.bookId ? getBookTitle(quote.bookId) : 'Unknown Book' }}
           </div>
           <div class="card-footer bg-transparent">
-            <button class="btn btn-sm btn-warning me-2" (click)="addToFavorites(quote)">
-              <i class="fas fa-heart"></i> Favorites
-            </button>
+          <button class="btn btn-sm me-2" [ngClass]="isFavorite(quote) ? 'btn-danger' : 'btn-warning'"
+            (click)="addToFavorites(quote)">
+            <i class="fas fa-heart"></i>
+            {{ isFavorite(quote) ? 'Remove Favorite' : 'Favorite' }}
+          </button>
             <button class="btn btn-sm btn-primary me-2" (click)="openEditModal(quote)">
               <i class="fas fa-edit"></i> Edit
             </button>

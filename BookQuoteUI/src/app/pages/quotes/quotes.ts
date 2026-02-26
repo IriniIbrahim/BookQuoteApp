@@ -33,7 +33,7 @@ export class Quotes implements OnInit {
     private fb: FormBuilder,
     private quotesService: QuotesService,
     private booksService: BooksService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -142,21 +142,32 @@ export class Quotes implements OnInit {
   }
 
   addToFavorites(quote: Quote): void {
-    const userId = this.authService.getUsername();
-    const key = `favoriteQuotes_${userId}`;
-    const favorites = localStorage.getItem(key);
-    let ids: number[] = favorites ? JSON.parse(favorites) : [];
-    
+    const userKey = this.authService.getUsername();
+    const storageKey = `favoriteQuotes_${userKey}`;
+
+    const stored = localStorage.getItem(storageKey);
+    let ids: number[] = stored ? JSON.parse(stored) : [];
+
+    // If already favorite → REMOVE
     if (ids.includes(quote.id!)) {
+      ids = ids.filter((id) => id !== quote.id);
+      localStorage.setItem(storageKey, JSON.stringify(ids));
       return;
     }
-    
+
+    // If not favorite → ADD (max 5)
     if (ids.length >= 5) {
       alert('You can only have up to 5 favorite quotes!');
       return;
     }
-    
+
     ids.push(quote.id!);
-    localStorage.setItem(key, JSON.stringify(ids));
+    localStorage.setItem(storageKey, JSON.stringify(ids));
+  }
+  isFavorite(quote: Quote): boolean {
+    const userKey = this.authService.getUsername();
+    const stored = localStorage.getItem(`favoriteQuotes_${userKey}`);
+    const ids: number[] = stored ? JSON.parse(stored) : [];
+    return ids.includes(quote.id!);
   }
 }
