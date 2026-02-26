@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  <h2><i class="fa-solid fa-heart"></i> My Favorite Quotes ({{ favoriteQuotes.length }}/{{ maxFavorites }})</h2>
+
+  <div class="row mt-4" *ngIf="favoriteQuotes.length > 0">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-md-6 col-lg-4 mb-3" *ngFor="let quote of favoriteQuotes">
+          <div class="card h-100 border-danger shadow-sm">
+            <div class="card-body">
+              <p class="card-text">
+                <i class="fa-solid fa-quote-left"></i> {{ quote.text }}
+                <i class="fa-solid fa-quote-right"></i>
+              </p>
+              <p class="card-subtitle text-muted">
+                <i class="fa-solid fa-user-pen"></i> {{ quote.author }}
+              </p>
+              <button class="btn btn-sm btn-danger mt-2" (click)="removeFromFavorites(quote.id!)">
+                <i class="fas fa-trash"></i> Remove from my favorites
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

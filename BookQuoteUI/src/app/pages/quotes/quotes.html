@@ -42,7 +42,7 @@
             <button type="button" class="btn btn-secondary" (click)="closeModal()">
               Cancel
             </button>
-            <button class="btn btn-primary" (click)="onSubmit()">
+            <button class="btn btn-primary" type="submit" [disabled]="quoteForm.invalid">
               {{ isEditMode ? 'Save Changes' : 'Add Quote' }}
             </button>
           </div>
@@ -53,7 +53,7 @@
 
   <div class="modal-backdrop fade show" *ngIf="showModal"></div>
   <div class="row mt-4">
-    <div class="col-md-3 col-lg-5 m-2" *ngFor="let quote of quotes.slice(0, 5)">
+    <div class="col-md-3 col-lg-5 m-2" *ngFor="let quote of quotes">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
           <div class="card-title font-weight-italic">
@@ -67,6 +67,9 @@
             <i class="fa-solid fa-book"></i> {{ quote.bookId ? getBookTitle(quote.bookId) : 'Unknown Book' }}
           </div>
           <div class="card-footer bg-transparent">
+            <button class="btn btn-sm btn-warning me-2" (click)="addToFavorites(quote)">
+              <i class="fas fa-heart"></i> Favorites
+            </button>
             <button class="btn btn-sm btn-primary me-2" (click)="openEditModal(quote)">
               <i class="fas fa-edit"></i> Edit
             </button>

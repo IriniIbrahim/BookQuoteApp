@@ -102,18 +102,22 @@ export class Books implements OnInit {
         isArchived: false,
       };
       this.booksService.update(this.editingBookId, updatedBook).subscribe({
-        next: () => this.loadBooks(),
+        next: () => {
+          this.loadBooks();
+          this.closeModal();
+        },
         error: () => (this.errorMessage = 'Failed to update book'),
       });
     } else {
       const newBook: Omit<Book, 'id'> = { title, author, publicationDate };
       this.booksService.add(newBook).subscribe({
-        next: () => this.loadBooks(),
+        next: () => {
+          this.loadBooks();
+          this.closeModal();
+        },
         error: () => (this.errorMessage = 'Failed to add book'),
       });
     }
-
-    this.closeModal();
   }
 
   archiveBook(id: number): void {

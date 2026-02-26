@@ -24,6 +24,7 @@ export class App implements OnInit {
 
   selectedBackground: string | null = null;
   isLoggedIn = false;
+  username = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -35,6 +36,9 @@ export class App implements OnInit {
 
   checkAuthStatus(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
+    if (this.isLoggedIn) {
+      this.username = this.authService.getUsername();
+    }
   }
 
   setBackground(bg: string) {

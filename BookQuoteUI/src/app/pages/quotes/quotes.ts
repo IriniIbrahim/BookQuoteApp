@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { QuotesService, Quote } from '../../shared/services/quotes.service';
 import { BooksService, Book } from '../../shared/services/books.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-quotes',
@@ -32,6 +33,7 @@ export class Quotes implements OnInit {
     private fb: FormBuilder,
     private quotesService: QuotesService,
     private booksService: BooksService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -107,18 +109,22 @@ export class Quotes implements OnInit {
         bookId: +bookId,
       };
       this.quotesService.update(this.editingQuoteId, updatedQuote).subscribe({
-        next: () => this.loadQuotes(),
+        next: () => {
+          this.loadQuotes();
+          this.closeModal();
+        },
         error: () => (this.errorMessage = 'Failed to update quote'),
       });
     } else {
       const newQuote: Omit<Quote, 'id'> = { text, author, bookId: +bookId };
       this.quotesService.add(newQuote).subscribe({
-        next: () => this.loadQuotes(),
+        next: () => {
+          this.loadQuotes();
+          this.closeModal();
+        },
         error: () => (this.errorMessage = 'Failed to add quote'),
       });
     }
-
-    this.closeModal();
   }
 
   deleteQuote(id: number): void {
@@ -133,5 +139,24 @@ export class Quotes implements OnInit {
   getBookTitle(bookId: number): string {
     const book = this.books.find((b) => b.id === bookId);
     return book ? book.title : 'Unknown Book';
+  }
+
+  addToFavorites(quote: Quote): void {
+    const userId = this.authService.getUsername();
+    const key = `favoriteQuotes_${userId}`;
+    const favorites = localStorage.getItem(key);
+    let ids: number[] = favorites ? JSON.parse(favorites) : [];
+    
+    if (ids.includes(quote.id!)) {
+      return;
+    }
+    
+    if (ids.length >= 5) {
+      alert('You can only have up to 5 favorite quotes!');
+      return;
+    }
+    
+    ids.push(quote.id!);
+    localStorage.setItem(key, JSON.stringify(ids));
   }
 }
