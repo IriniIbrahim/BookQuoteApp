@@ -6,32 +6,48 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// =====================
-// Services
-// =====================
+/* =========================
+   DATABASE (SQLite – safe for free hosting)
+   ========================= */
+var connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? "Data Source=bookquote.db";
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=bookquote.db")
+    options.UseSqlite(connectionString)
 );
 
+/* =========================
+   SERVICES
+   ========================= */
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+/* =========================
+   CORS (Angular + Production)
+   ========================= */
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngular", policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
-        var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() 
-            ?? new[] { "http://localhost:4200" };
         policy
-            .WithOrigins(allowedOrigins)
+            .AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
 });
 
-// JWT Authentication
+/* =========================
+   JWT AUTH
+   ========================= */
+var jwtKey = builder.Configuration["Jwt:Key"];
+
+if (string.IsNullOrEmpty(jwtKey))
+{
+    throw new Exception("JWT Key is missing. Set Jwt:Key in environment variables.");
+}
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -42,31 +58,38 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+                Encoding.UTF8.GetBytes(jwtKey)
             )
         };
     });
 
 builder.Services.AddAuthorization();
 
-// =====================
-// App
-// =====================
-
 var app = builder.Build();
 
-// Swagger
+/* =========================
+   AUTO MIGRATE DATABASE
+   ========================= */
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
+
+/* =========================
+   MIDDLEWARE
+   ========================= */
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// ❌ Disable HTTPS redirect for free hosting
+// app.UseHttpsRedirection();
 
-app.UseCors("AllowAngular");
+app.UseCors("AllowAll");
 
-// ⚠️ ORDER MATTERS
 app.UseAuthentication();
 app.UseAuthorization();
 
