@@ -45,6 +45,6 @@ export class App implements OnInit {
   logout(): void {
     this.authService.logout();
     this.isLoggedIn = false;
-    this.router.navigate(['/']);
+    window.location.href = '/';
   }
 }

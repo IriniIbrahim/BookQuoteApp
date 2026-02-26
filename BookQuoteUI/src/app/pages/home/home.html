@@ -5,7 +5,7 @@
   </h1>
   <p>This app allows you to discover and share your favorite book quotes.</p>
   <p>Use the navigation bar to explore books, quotes, and your quote history.</p>
-  <p class="mb-5" *ngIf="!isLoggedIn">To get started, you need to log in or sign up for an account.</p>
+  <p class="mb-5" *ngIf="!isLoggedIn">To get started, you need to log in or register for an account.</p>
   <p class="mb-5" *ngIf="isLoggedIn">Welcome, {{ username }}!</p>
   <button *ngIf="!isLoggedIn" class="btn btn-outline-dark position-absolute start-50 translate-middle" type="button" (click)="navigateToAuth()">Login/Register</button>
 </div>

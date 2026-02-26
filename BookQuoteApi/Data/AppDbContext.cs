@@ -11,4 +11,11 @@ public class AppDbContext : DbContext
     public DbSet<Book> Books => Set<Book>();
     public DbSet<Quote> Quotes => Set<Quote>();
     public DbSet<ArchiveLog> ArchiveLogs => Set<ArchiveLog>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Username)
+            .IsUnique();
+    }
 }

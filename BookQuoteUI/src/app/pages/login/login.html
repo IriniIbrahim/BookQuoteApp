@@ -5,6 +5,9 @@
         </h2>
 
         <form [formGroup]="loginForm" (ngSubmit)="submit()">
+            <div *ngIf="error" class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-circle"></i> {{ error }}
+            </div>
             <div class="mb-3">
                 <label for="Username" class="form-label">Username</label>
                 <input type="text" class="form-control" placeholder="Username" formControlName="username" />
@@ -28,7 +31,7 @@
 
             <p class="mt-3 text-center">
                 Don't have an account?
-                <a routerLink="/register">Sign up here</a>
+                <a routerLink="/register">Register here</a>
             </p>
         </form>
     </div>

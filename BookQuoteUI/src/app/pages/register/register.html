@@ -5,6 +5,12 @@
         </h2>
 
         <form [formGroup]="registerForm" (ngSubmit)="submit()">
+            <div *ngIf="error" class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-circle"></i> {{ error }}
+            </div>
+            <div *ngIf="success" class="alert alert-success" role="alert">
+                <i class="fas fa-check-circle"></i> {{ success }}
+            </div>
             <div class="mb-3">
                 <label for="fullName" class="form-label">Username</label>
                 <input type="text" class="form-control" placeholder="Username" formControlName="username" />
@@ -15,13 +21,6 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" placeholder="Password (min 6 chars)"
                     formControlName="password" />
-            </div>
-            <div class="text-danger mb-2" *ngIf="error">
-                {{ error }}
-            </div>
-
-            <div class="text-success mb-2" *ngIf="success">
-                {{ success }}
             </div>
 
             <button type="submit" class="btn btn-primary w-100">

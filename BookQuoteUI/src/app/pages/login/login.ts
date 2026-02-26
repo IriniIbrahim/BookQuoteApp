@@ -31,7 +31,9 @@ export class Login {
     const { username, password } = this.loginForm.value;
 
     this.authService.login(username!, password!).subscribe({
-      next: () => this.router.navigate(['/books']),
+      next: () => {
+        window.location.href = '/';
+      },
       error: () => (this.error = 'Invalid credentials'),
     });
   }
