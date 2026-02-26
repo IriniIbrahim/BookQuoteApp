@@ -1,2 +1,24 @@
-# Local Netlify folder
-.netlify
+# .NET
+bin/
+obj/
+*.db
+*.db-shm
+*.db-wal
+appsettings.Development.json
+
+# Angular
+node_modules/
+dist/
+.angular/
+*.log
+
+# IDE
+.vs/
+.vscode/
+*.suo
+*.user
+
+# Environment
+.env
+.env.local
+.env.production
