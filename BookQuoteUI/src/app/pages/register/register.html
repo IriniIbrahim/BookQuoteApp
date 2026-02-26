@@ -1,0 +1,37 @@
+<div class="register-container d-flex justify-content-center align-items-center " style="min-height: 70vh;">
+    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-4">
+            <i class="fas fa-user-plus"></i> Sign Up
+        </h2>
+
+        <form [formGroup]="registerForm" (ngSubmit)="submit()">
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Username</label>
+                <input type="text" class="form-control" placeholder="Username" formControlName="username" />
+
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" placeholder="Password (min 6 chars)"
+                    formControlName="password" />
+            </div>
+            <div class="text-danger mb-2" *ngIf="error">
+                {{ error }}
+            </div>
+
+            <div class="text-success mb-2" *ngIf="success">
+                {{ success }}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-user-plus"></i> Sign Up
+            </button>
+
+            <p class="mt-3 text-center">
+                Already have an account?
+                <a routerLink="/login">Login here</a>
+            </p>
+        </form>
+    </div>
+</div>

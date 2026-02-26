@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using BookQuoteApi.Data;
 using BookQuoteApi.Models;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookQuoteApi.Controllers;
 
@@ -16,6 +17,7 @@ public class BooksController : ControllerBase
     {
         _context = context;
     }
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
     {
@@ -23,6 +25,7 @@ public class BooksController : ControllerBase
             .Where(b => !b.IsArchived)
             .ToListAsync();
     }
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<Book>> GetBook(int id)
     {
@@ -32,6 +35,7 @@ public class BooksController : ControllerBase
 
         return book;
     }
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<Book>> CreateBook(Book book)
     {
@@ -40,6 +44,7 @@ public class BooksController : ControllerBase
 
         return CreatedAtAction(nameof(GetBooks), new { id = book.Id }, book);
     }
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateBook(int id, Book updatedBook)
     {
@@ -53,6 +58,7 @@ public class BooksController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok(book);
     }
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> ArchiveBook(int id)
     {

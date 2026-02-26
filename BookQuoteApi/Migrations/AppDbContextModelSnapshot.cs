@@ -71,11 +71,15 @@ namespace BookQuoteApi.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Quote", b =>
+            modelBuilder.Entity("BookQuoteApi.Models.Quote", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("BookId")
                         .HasColumnType("INTEGER");
@@ -90,6 +94,25 @@ namespace BookQuoteApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Quotes");
+                });
+
+            modelBuilder.Entity("BookQuoteApi.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

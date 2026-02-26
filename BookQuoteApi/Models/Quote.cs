@@ -1,3 +1,5 @@
+namespace BookQuoteApi.Models;
+
 public class Quote
 {
     public int Id { get; set; }

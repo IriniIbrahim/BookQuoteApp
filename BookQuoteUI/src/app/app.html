@@ -25,11 +25,11 @@
     </ul>
 
     <div class="d-flex gap-2">
-      <button class="btn btn-outline-dark" routerLink="/login">
-        <i class="fa fa-sign-in-alt"></i>
+      <button *ngIf="!isLoggedIn" class="btn btn-outline-dark" routerLink="/login">
+        <i class="fa fa-sign-in-alt"></i> Login
       </button>
-      <button class="btn btn-outline-dark" routerLink="/signup">
-        <i class="fa fa-user-plus"></i>
+      <button *ngIf="isLoggedIn" class="btn btn-outline-dark" (click)="logout()">
+        <i class="fa fa-sign-out-alt"></i> Logout
       </button>
 
       <app-theme-toggle></app-theme-toggle>

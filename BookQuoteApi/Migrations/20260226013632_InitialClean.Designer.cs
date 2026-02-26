@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookQuoteApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260225191432_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260226013632_InitialClean")]
+    partial class InitialClean
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,6 +84,9 @@ namespace BookQuoteApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("BookId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsArchived")
                         .HasColumnType("INTEGER");
 
@@ -94,6 +97,25 @@ namespace BookQuoteApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Quotes");
+                });
+
+            modelBuilder.Entity("BookQuoteApi.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

@@ -181,3 +181,5 @@ D:\BookQuoteApp\bookquoteapi\obj\Debug\net9.0\refint\BookQuoteApi.dll
 D:\BookQuoteApp\bookquoteapi\obj\Debug\net9.0\BookQuoteApi.pdb
 D:\BookQuoteApp\bookquoteapi\obj\Debug\net9.0\BookQuoteApi.genruntimeconfig.cache
 D:\BookQuoteApp\bookquoteapi\obj\Debug\net9.0\ref\BookQuoteApi.dll
+D:\BookQuoteApp\bookquoteapi\bin\Debug\net9.0\BCrypt.Net-Next.dll
+D:\BookQuoteApp\bookquoteapi\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
