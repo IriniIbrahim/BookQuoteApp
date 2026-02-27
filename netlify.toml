@@ -1,6 +1,7 @@
 [build]
-  command = "npm run build"
-  publish = "dist/BookQuoteUI"
+  base = "BookQuoteUI"
+  command = "ng build --configuration production"
+  publish = "dist/BookQuoteUI/browser"
 
 [[redirects]]
   from = "/*"
