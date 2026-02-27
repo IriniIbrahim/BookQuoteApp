@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString =
     builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Data Source=bookquote.db";
-
+ConnectionStrings__DefaultConnection = Data Source=bookquote.db
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(connectionString)
 );
