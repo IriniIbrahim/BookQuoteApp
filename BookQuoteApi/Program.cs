@@ -68,13 +68,9 @@ using (var scope = app.Services.CreateScope())
 }
 
 // ── Middleware ────────────────────────────────────────────────────────────────
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 app.UseSwagger();
 app.UseSwaggerUI();
+
 app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
@@ -83,3 +79,9 @@ app.MapControllers();
 // ── PORT (Railway injects this) ───────────────────────────────────────────────
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 app.Run($"http://0.0.0.0:{port}");
+```
+
+Then go to Railway → **Variables** tab and make sure these are set:
+```
+Jwt__Key = your_secret_key_at_least_32_characters_long
+ASPNETCORE_ENVIRONMENT = Production
