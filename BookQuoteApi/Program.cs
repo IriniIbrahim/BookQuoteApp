@@ -6,9 +6,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-/* =========================
-   DATABASE (SQLite – safe for free hosting)
-   ========================= */
+// ── Database ──────────────────────────────────────────────────────────────────
 var connectionString =
     builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Data Source=bookquote.db";
@@ -17,16 +15,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(connectionString)
 );
 
-/* =========================
-   SERVICES
-   ========================= */
+// ── Controllers / Swagger ─────────────────────────────────────────────────────
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-/* =========================
-   CORS (Angular + Production)
-   ========================= */
+// ── CORS ──────────────────────────────────────────────────────────────────────
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -38,9 +32,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-/* =========================
-   JWT AUTH
-   ========================= */
+// ── JWT Auth ──────────────────────────────────────────────────────────────────
 var jwtKey = builder.Configuration["Jwt:Key"];
 
 if (string.IsNullOrEmpty(jwtKey))
@@ -65,34 +57,28 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
+// ── Build ─────────────────────────────────────────────────────────────────────
 var app = builder.Build();
 
-/* =========================
-   AUTO MIGRATE DATABASE
-   ========================= */
+// ── Run migrations on startup ─────────────────────────────────────────────────
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
 }
 
-/* =========================
-   MIDDLEWARE
-   ========================= */
+// ── Middleware ────────────────────────────────────────────────────────────────
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// ❌ Disable HTTPS redirect for free hosting
-// app.UseHttpsRedirection();
-
 app.UseCors("AllowAll");
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
-app.Run();
+// ── PORT (Railway injects this) ───────────────────────────────────────────────
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Run($"http://0.0.0.0:{port}");
