@@ -5,7 +5,7 @@ import { ArchiveLog } from '../models/archive-log';
 
 @Injectable({ providedIn: 'root' })
 export class ArchiveService {
-  private baseUrl = 'http://localhost:5073/api/archive';
+  private baseUrl = 'https://bookquoteapp-production.up.railway.app/api/archive';
 
   constructor(private http: HttpClient) {}
 

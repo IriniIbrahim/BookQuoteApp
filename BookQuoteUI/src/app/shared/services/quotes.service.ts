@@ -11,7 +11,7 @@ export interface Quote {
 } 
 @Injectable({ providedIn: 'root' })
 export class QuotesService {
-  private apiUrl = 'http://localhost:5073/api/quotes';
+  private apiUrl = 'https://bookquoteapp-production.up.railway.app/api/quotes';
 
   constructor(private http: HttpClient) {}
 

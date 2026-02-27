@@ -4,7 +4,7 @@ import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://localhost:5073/api/auth';
+  private baseUrl = 'https://bookquoteapp-production.up.railway.app/api/auth';
   private tokenKey = 'auth_token';
 
   constructor(private http: HttpClient) {}

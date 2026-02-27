@@ -12,7 +12,7 @@ export interface Book {
 
 @Injectable({ providedIn: 'root' })
 export class BooksService {
-  private apiUrl = 'http://localhost:5073/api/books';
+  private apiUrl = 'https://bookquoteapp-production.up.railway.app/api/books';
 
   constructor(private http: HttpClient) {}
 
