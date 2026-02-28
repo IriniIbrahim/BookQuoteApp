@@ -170,4 +170,9 @@ export class Quotes implements OnInit {
     const ids: number[] = stored ? JSON.parse(stored) : [];
     return ids.includes(quote.id!);
   }
+
+  // The first five quotes are seeded in the DbContext and should not be deletable
+  isProtected(quote: Quote): boolean {
+    return quote.id !== undefined && quote.id <= 5;
+  }
 }

@@ -75,7 +75,10 @@
             <button class="btn btn-sm btn-primary me-2" (click)="openEditModal(quote)">
               <i class="fas fa-edit"></i> Edit
             </button>
-            <button class="btn btn-sm btn-danger" (click)="quote.id && deleteQuote(quote.id)">
+            <button class="btn btn-sm btn-danger" 
+              (click)="quote.id && deleteQuote(quote.id)" 
+              [disabled]="isProtected(quote)" 
+              [title]="isProtected(quote) ? 'Seeded quotes cannot be deleted' : ''">
               <i class="fas fa-trash"></i> Delete
             </button>
           </div>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\BookQuoteApp\\bookquoteapi\\BookQuoteApi.csproj": {}
+    "D:\\BookQuoteApp\\BookQuoteApi\\BookQuoteApi.csproj": {}
   },
   "projects": {
-    "D:\\BookQuoteApp\\bookquoteapi\\BookQuoteApi.csproj": {
+    "D:\\BookQuoteApp\\BookQuoteApi\\BookQuoteApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\BookQuoteApp\\bookquoteapi\\BookQuoteApi.csproj",
+        "projectUniqueName": "D:\\BookQuoteApp\\BookQuoteApi\\BookQuoteApi.csproj",
         "projectName": "BookQuoteApi",
-        "projectPath": "D:\\BookQuoteApp\\bookquoteapi\\BookQuoteApi.csproj",
+        "projectPath": "D:\\BookQuoteApp\\BookQuoteApi\\BookQuoteApi.csproj",
         "packagesPath": "C:\\Users\\irini\\.nuget\\packages\\",
-        "outputPath": "D:\\BookQuoteApp\\bookquoteapi\\obj\\",
+        "outputPath": "D:\\BookQuoteApp\\BookQuoteApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\irini\\AppData\\Roaming\\NuGet\\NuGet.Config"
