@@ -8,4 +8,5 @@
   <p class="mb-5" *ngIf="!isLoggedIn">To get started, you need to log in or register for an account.</p>
   <p class="mb-5" *ngIf="isLoggedIn">Welcome, {{ username }}!</p>
   <button *ngIf="!isLoggedIn" class="btn btn-outline-dark position-absolute start-50 translate-middle" type="button" (click)="navigateToAuth()">Login/Register</button>
+  <button *ngIf="isLoggedIn" class="btn btn-primary position-absolute start-50 translate-middle" type="button" (click)="navigateToBooks()">Add New Book</button>
 </div>

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
-
+import { BooksService } from '../../shared/services/books.service';
+import { Book } from '../../shared/services/books.service'; 
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -25,5 +26,9 @@ export class Home implements OnInit {
 
   navigateToAuth(): void {
     this.router.navigate(['/login']);
+  }
+
+  navigateToBooks(): void {
+    this.router.navigate(['/books']);
   }
 }
