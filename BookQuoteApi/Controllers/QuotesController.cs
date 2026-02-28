@@ -67,9 +67,9 @@ public class QuotesController : ControllerBase
             EntityTitle = quote.Text,
             Details = JsonSerializer.Serialize(new
             {
-                quote.Text,
+                quote.Text,                
+                quote.Author,
                 quote.BookId,
-                quote.Author
             })
         });
 

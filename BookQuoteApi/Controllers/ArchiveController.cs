@@ -16,7 +16,6 @@ public class ArchiveController : ControllerBase
         _context = context;
     }
 
-    // GET: api/archive?type=books
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ArchiveLog>>> GetArchive([FromQuery] string? type)
     {
