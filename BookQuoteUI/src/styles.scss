@@ -58,13 +58,16 @@ body.dark-mode .btn-outline-dark {
 }
 
 body.dark-mode .add-new-item-form {
-  background-color: #000000f8;
+  background-color: #000000;
   color: #ffffff;
 }
+.add-new-item-form .form-control, .form-select {
+    background-color: #ffffff;
 
+}
 body.dark-mode .add-new-item-form .form-control, .form-select {
   background-color: #cccccc86;
-  color: #ffffff;
+  color: #000000;
 }
 
 .card {
@@ -162,4 +165,12 @@ body.dark-mode .brand {
 body.dark-mode .list-group-item{
   background-color: rgba(197, 197, 197, 0.186);
   color: #ffffff;
+}
+
+.entity-meta {
+  color: #282828;
+}
+
+body.dark-mode .entity-meta {
+  color: #d4d4d4;
 }

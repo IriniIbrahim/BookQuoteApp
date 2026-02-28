@@ -139,7 +139,7 @@ export class Quotes implements OnInit {
   getBookTitle(bookId: number): string {
     // if this quote is associated with bookId 1, it's treated as a protected/placeholder book
     if (bookId === 1) {
-      return 'My Protected Quotes';
+      return 'My Quotes';
     }
 
     const book = this.books.find((b) => b.id === bookId);
