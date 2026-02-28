@@ -137,6 +137,11 @@ export class Quotes implements OnInit {
     return this.books.filter((book) => !book.isArchived);
   }
   getBookTitle(bookId: number): string {
+    // if this quote is associated with bookId 1, it's treated as a protected/placeholder book
+    if (bookId === 1) {
+      return 'My Protected Quotes';
+    }
+
     const book = this.books.find((b) => b.id === bookId);
     return book ? book.title : 'Unknown Book';
   }
@@ -154,6 +159,7 @@ export class Quotes implements OnInit {
       localStorage.setItem(storageKey, JSON.stringify(ids));
       return;
     }
+
 
     // If not favorite → ADD (max 5)
     if (ids.length >= 5) {
