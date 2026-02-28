@@ -76,9 +76,7 @@
               <i class="fas fa-edit"></i> Edit
             </button>
             <button class="btn btn-sm btn-danger" 
-              (click)="quote.id && deleteQuote(quote.id)" 
-              [disabled]="isProtected(quote)" 
-              [title]="isProtected(quote) ? 'Seeded quotes cannot be deleted' : ''">
+              (click)="quote.id && deleteQuote(quote.id)">
               <i class="fas fa-trash"></i> Delete
             </button>
           </div>

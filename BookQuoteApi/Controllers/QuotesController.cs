@@ -54,12 +54,7 @@ public class QuotesController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> ArchiveQuote(int id)
     {
-        // prevent removing the first five seeded quotes
-        if (id > 0 && id <= 5)
-        {
-            return Forbid("Seeded quotes cannot be deleted.");
-        }
-
+       
         var quote = await _context.Quotes.FindAsync(id);
         if (quote == null) return NotFound();
 
@@ -69,9 +64,7 @@ public class QuotesController : ControllerBase
         {
             EntityType = "Quote",
             EntityId = quote.Id,
-            EntityTitle = quote.Text.Length > 50
-                ? quote.Text[..50] + "..."
-                : quote.Text,
+            EntityTitle = quote.Text,
             Details = JsonSerializer.Serialize(new
             {
                 quote.Text,
