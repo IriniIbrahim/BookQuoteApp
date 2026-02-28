@@ -1,94 +1,123 @@
-<div class="container mt-4">
-    <h3>
+div class="container mt-4 archive-page">
+
+<!-- Header -->
+<div class="d-flex align-items-center gap-2 mb-4">
+    <div class="archive-icon-wrap">
         <i class="fas fa-box-archive"></i>
-        Archive
-    </h3>
+    </div>
+    <div>
+        <h3 class="mb-0 archive-title">Archive</h3>
+        <small class="text-muted">Deleted books and quotes</small>
+    </div>
+</div>
 
-    <!-- Filters -->
-    <div class="btn-group mb-4" role="group">
-        <button class="btn" [ngClass]="selectedFilter === 'all' ? 'btn-secondary' : 'btn-outline-secondary'"
+<!-- Filters -->
+<div class="filter-bar mb-4">
+    <div class="btn-group" role="group" aria-label="Filter archive items">
+        <button class="btn filter-btn" [ngClass]="selectedFilter === 'all' ? 'active' : ''"
             (click)="filterByType('all')">
-            <i class="fas fa-list"></i> All
+            <i class="fas fa-layer-group me-1"></i> All
         </button>
-
-        <button class="btn" [ngClass]="selectedFilter === 'books' ? 'btn-secondary' : 'btn-outline-secondary'"
+        <button class="btn filter-btn" [ngClass]="selectedFilter === 'books' ? 'active' : ''"
             (click)="filterByType('books')">
-            <i class="fas fa-book"></i> Books
+            <i class="fas fa-book me-1"></i> Books
         </button>
-
-        <button class="btn" [ngClass]="selectedFilter === 'quotes' ? 'btn-secondary' : 'btn-outline-secondary'"
+        <button class="btn filter-btn" [ngClass]="selectedFilter === 'quotes' ? 'active' : ''"
             (click)="filterByType('quotes')">
-            <i class="fas fa-quote-left"></i> Quotes
+            <i class="fas fa-quote-left me-1"></i> Quotes
         </button>
     </div>
+</div>
 
-    <!-- Loading -->
-    <div *ngIf="isLoading" class="text-center my-5">
-        <div class="spinner-grow" style="width: 2rem; height: 2rem;" role="status"></div>
+<!-- Loading -->
+<div *ngIf="isLoading" class="text-center my-5 py-5">
+    <div class="spinner-grow text-secondary" style="width: 2.5rem; height: 2.5rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
     </div>
+    <p class="text-muted mt-3 small">Loading archived items…</p>
+</div>
 
-    <!-- Empty state -->
-    <div *ngIf="!isLoading && items.length === 0" class="text-center my-5">
-        <i class="fas fa-archive fa-3x text-muted mb-3"></i>
-        <p class="text-muted">No archived items</p>
+<!-- Empty State -->
+<div *ngIf="!isLoading && items.length === 0" class="empty-state text-center my-5 py-5">
+    <div class="empty-icon-wrap mx-auto mb-3">
+        <i class="fas fa-box-open fa-2x text-muted"></i>
     </div>
+    <p class="text-muted mb-0">No archived items yet</p>
+    <small class="text-muted opacity-75">Deleted books and quotes will appear here</small>
+</div>
 
-    <!-- Archive list -->
-    <div class="row" *ngIf="!isLoading && items.length > 0">
-        <div class="col-12">
-            <div class="list-group">
+<!-- Archive List -->
+<div class="archive-list" *ngIf="!isLoading && items.length > 0">
+    <div class="archive-card" *ngFor="let item of items">
+        <div class="archive-card-inner">
 
-                <div class="list-group-item list-group-item-action" *ngFor="let item of items">
-                    <div class="d-flex w-100 justify-content-between align-items-start">
+            <!-- Left accent bar -->
+            <div class="type-accent" [ngClass]="item.entityType === 'Book' ? 'accent-book' : 'accent-quote'"></div>
 
-                        <div>
-                            <!-- Title + icon -->
-                            <h5 class="mb-1">
-                                <i [class]="item.entityType === 'Book'
-                    ? 'fas fa-book text-primary'
-                    : 'fas fa-quote-left text-info'"></i>
-                                {{ item.entityTitle }}
-                            </h5>
+            <!-- Icon -->
+            <div class="entity-icon" [ngClass]="item.entityType === 'Book' ? 'icon-book' : 'icon-quote'">
+                <i [class]="item.entityType === 'Book'
+              ? 'fas fa-book'
+              : 'fas fa-quote-left'"></i>
+            </div>
 
-                            <!-- Badges -->
-                            <p class="mb-1">
-                                <span class="badge bg-danger me-2">
-                                    <i class="fas fa-trash"></i> Deleted
-                                </span>
-                                <span class="badge bg-secondary">
-                                    {{ item.entityType }}
-                                </span>
-                            </p>
+            <!-- Main content -->
+            <div class="entity-body flex-grow-1">
+                <div class="d-flex align-items-start justify-content-between flex-wrap gap-2">
 
-                            <!-- Archived date -->
-                            <small class="text-muted">
-                                <i class="fas fa-clock"></i>
-                                Archived {{ item.deletedAt | date:'medium' }}
-                            </small>
+                    <div>
+                        <h5 class="entity-title mb-1">{{ item.entityTitle }}</h5>
 
-                            <!-- Book details -->
-                            <div class="mt-2" *ngIf="item.entityType === 'Book'">
-                                <small *ngIf="parseDetails(item.details) as book">
-                                    <strong>Author:</strong> {{ book.author }}<br />
-                                    <strong>Published:</strong>
-                                    {{ book.publicationDate | date:'mediumDate' }}
-                                </small>
-                            </div>
-
-                            <!-- Quote details -->
-                            <div class="mt-2" *ngIf="item.entityType === 'Quote'">
-                                <small *ngIf="parseDetails(item.details) as quote">
-                                    <strong>Author:</strong> {{ quote.author }}<br />
-                                    <em>"{{ quote.text }}"</em>
-                                </small>
-                            </div>
-
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                            <span class="badge badge-deleted">
+                                <i class="fas fa-trash-alt me-1"></i>Deleted
+                            </span>
+                            <span class="badge badge-type">
+                                <i class="me-1"
+                                    [ngClass]="item.entityType === 'Book' ? 'fas fa-book' : 'fas fa-quote-left'"></i>{{
+                                item.entityType }}
+                            </span>
                         </div>
 
+                        <div class="entity-meta">
+                            <i class="fas fa-clock me-1"></i>
+                            Archived {{ item.deletedAt | date:'medium' }}
+                        </div>
                     </div>
+
+                </div>
+
+                <!-- Book Details -->
+                <div class="detail-block mt-2" *ngIf="item.entityType === 'Book'">
+                    <small *ngIf="parseDetails(item.details) as book">
+                        <span class="detail-row">
+                            <i class="fas fa-user-pen me-1 text-muted"></i>
+                            <strong>Author:</strong>&nbsp;{{ book.author }}
+                        </span>
+                        <span class="detail-row">
+                            <i class="fas fa-calendar-days me-1 text-muted"></i>
+                            <strong>Published:</strong>&nbsp;{{ book.publicationDate | date:'mediumDate' }}
+                        </span>
+                    </small>
+                </div>
+
+                <!-- Quote Details -->
+                <div class="detail-block mt-2" *ngIf="item.entityType === 'Quote'">
+                    <small *ngIf="parseDetails(item.details) as quote">
+                        <span class="detail-row">
+                            <i class="fas fa-user-pen me-1 text-muted"></i>
+                            <strong>Author:</strong>&nbsp;{{ quote.author }}
+                        </span>
+                        <span class="detail-row quote-text">
+                            <i class="fas fa-quote-left me-1 text-muted"></i>
+                            <em>{{ quote.text }}</em>
+                        </span>
+                    </small>
                 </div>
 
             </div>
         </div>
     </div>
+</div>
+
 </div>
