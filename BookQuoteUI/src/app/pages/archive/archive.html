@@ -69,7 +69,7 @@
                             <!-- Book details -->
                             <div class="mt-2" *ngIf="item.entityType === 'Book'">
                                 <small *ngIf="parseDetails(item.details) as book">
-                                    <strong>Author:</strong> {{ book.author }}<br />
+                                    <strong>Author:</strong> {{ book.author }} <br />
                                     <strong>Published:</strong>
                                     {{ book.publicationDate | date:'mediumDate' }}
                                 </small>
@@ -78,8 +78,8 @@
                             <!-- Quote details -->
                             <div class="mt-2" *ngIf="item.entityType === 'Quote'">
                                 <small *ngIf="parseDetails(item.details) as quote">
-                                    <strong>Author:</strong> {{ quote.author }}<br />
-                                    <em>{{ quote.text }}</em>
+                                    <strong>Author:</strong> {{ quote.author }} <br />
+                                    <p class="fst-italic">{{ quote.text }}</p>
                                 </small>
                             </div>
 
