@@ -84,33 +84,4 @@ npm run build   # or: ng serve for development
 
 API settings (JWT secret, connection string, logging) are managed via `appsettings.json` and `appsettings.{Environment}.json`. The API reads a `PORT` environment variable for deployment platforms like Railway.
 
-For frontend deployments, `netlify.toml` and `vercel.json` are included for static hosting.
-
----
-
-## API Overview
-
-| Resource | Endpoint | Auth Required |
-|---|---|---|
-| Auth | `/api/auth` | No |
-| Books | `/api/books` | Yes |
-| Quotes | `/api/quotes` | Yes |
-| Archive | `/api/archive` | Yes |
-
-Full API documentation is available via Swagger at `/swagger` when running locally.
-
----
-
-## Known Limitations & Potential Improvements
-
-- No unit or integration tests are currently present
-- Client-side state management is minimal (no NgRx store)
-- Error handling could be centralized into a shared HTTP interceptor service
-- Loading indicators and more granular form validation would improve UX
-- Migrations may need cleanup if switching database providers
-
----
-
-## License
-
-This project does not currently specify a license.
+For frontend deployments, `netlify.toml` is included for static hosting.
