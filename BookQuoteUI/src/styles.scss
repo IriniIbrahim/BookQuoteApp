@@ -24,7 +24,7 @@ body {
 body.dark-mode {
   background-color: rgba(0, 0, 0, 0.65);
   background-blend-mode: darken;
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .navbar-brand {
@@ -67,10 +67,11 @@ body.dark-mode .add-new-item-form {
 //   background-color: #f3060686;
 //   color: #ffffff;
 // }
-body.dark-mode .add-new-item-form .form-control {
+body.dark-mode .add-new-item-form .form-control, .form-select {
   background-color: #cccccc86;
   color: #ffffff;
 }
+
 
 .card {
   background-color: rgba(255, 255, 255, 0.314);
@@ -160,11 +161,6 @@ body.dark-mode .brand {
 }
 
 body.dark-mode .list-group-item{
-  background-color: rgba(197, 197, 197, 0.186);
-  color: #ffffff;
-}
-
-body.dark-mode .form-select {
   background-color: rgba(197, 197, 197, 0.186);
   color: #ffffff;
 }
