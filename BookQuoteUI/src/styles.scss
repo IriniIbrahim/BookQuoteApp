@@ -84,8 +84,12 @@ body.dark-mode .card {
   box-shadow: rgba(0, 0, 0, 0.559) 0px 3px 12px;
 }
  .card-subtitle {
-  color: #ffffff;   }
+  color: #000000;   
+}
 
+body.dark-mode .card-subtitle {
+  color: #ffffff;
+}
 body.dark-mode .btn-secondary {
   background-color: #000000;
   color: #ffffff;
