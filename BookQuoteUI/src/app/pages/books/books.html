@@ -32,7 +32,7 @@
             <button type="button" class="btn btn-secondary" (click)="closeModal()">
               Cancel
             </button>
-            <button type="submit" class="btn btn-primary" [disabled]="bookForm.invalid || isLoading">
+            <button class="btn btn-primary" (click)="onSubmit()">
               {{ isEditMode ? 'Save Changes' : 'Add Book' }}
             </button>
           </div>
