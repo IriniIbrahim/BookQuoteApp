@@ -6,17 +6,17 @@
 
     <!-- Filters -->
     <div class="btn-group mb-4" role="group">
-        <button class="btn" [ngClass]="selectedFilter === 'all' ? 'btn-secondary' : 'btn-outline-primary'"
+        <button class="btn" [ngClass]="selectedFilter === 'all' ? 'btn-secondary' : 'btn-outline-secondary'"
             (click)="filterByType('all')">
             <i class="fas fa-list"></i> All
         </button>
 
-        <button class="btn" [ngClass]="selectedFilter === 'books' ? 'btn-secondary' : 'btn-outline-primary'"
+        <button class="btn" [ngClass]="selectedFilter === 'books' ? 'btn-secondary' : 'btn-outline-secondary'"
             (click)="filterByType('books')">
             <i class="fas fa-book"></i> Books
         </button>
 
-        <button class="btn" [ngClass]="selectedFilter === 'quotes' ? 'btn-secondary' : 'btn-outline-primary'"
+        <button class="btn" [ngClass]="selectedFilter === 'quotes' ? 'btn-secondary' : 'btn-outline-secondary'"
             (click)="filterByType('quotes')">
             <i class="fas fa-quote-left"></i> Quotes
         </button>
