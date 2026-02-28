@@ -29,8 +29,8 @@
 
     <!-- Empty state -->
     <div *ngIf="!isLoading && items.length === 0" class="text-center my-5">
-        <i class="fas fa-archive fa-3x text-muted mb-3"></i>
-        <p class="text-muted">No archived items</p>
+        <i class="fas fa-archive fa-3x entity-meta mb-3"></i>
+        <p class="entity-meta">No archived items</p>
     </div>
 
     <!-- Archive list -->
@@ -61,7 +61,7 @@
                             </p>
 
                             <!-- Archived date -->
-                            <small class="text-muted">
+                            <small class="entity-meta">
                                 <i class="fas fa-clock"></i>
                                 Archived {{ item.deletedAt | date:'medium' }}
                             </small>
