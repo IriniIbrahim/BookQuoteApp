@@ -1,6 +1,6 @@
 <div class="container mt-4">
     <h3>
-        <i class="fas fa-box-archive"></i>
+        <i class="fas fa-box-archive text-warning"></i>
         Archive
     </h3>
 
@@ -61,7 +61,7 @@
                             </p>
 
                             <!-- Archived date -->
-                            <small class="entity-meta">
+                            <small class="text-body-secondary">
                                 <i class="fas fa-clock"></i>
                                 Archived {{ item.deletedAt | date:'medium' }}
                             </small>
@@ -78,9 +78,7 @@
                             <!-- Quote details -->
                             <div class="mt-2" *ngIf="item.entityType === 'Quote'">
                                 <small *ngIf="parseDetails(item.details) as quote">
-                                    <strong>Author:</strong> {{ quote.author }} <br />
-                                    <strong>Published:</strong>
-                                    {{ quote.bookid}}
+                                    <strong>Author:</strong> {{ quote.author }}
                                 </small>
                             </div>
 
