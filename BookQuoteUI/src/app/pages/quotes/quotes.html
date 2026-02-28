@@ -31,8 +31,8 @@
             <div class="mb-3">
               <label for="bookId" class="form-label">From Book</label>
               <select class="form-select" formControlName="bookId" id="bookId">
-                <option value="0">None</option>
-                <option *ngFor="let book of activeBooks" [value]="book.id">
+                <option class="form-select" value="0">None</option>
+                <option class="form-select" *ngFor="let book of activeBooks" [value]="book.id">
                   {{ book.title }} by {{ book.author }}
                 </option>
               </select>
@@ -64,7 +64,7 @@
             <i class="fa-solid fa-user-pen"></i> {{ quote.author }}
           </p>
           <div class="card-title font-weight-italic">
-            <i class="fa-solid fa-book"></i> {{ quote.bookId ? getBookTitle(quote.bookId) : 'Unknown Book' }}
+            <i class="fa-solid fa-book"></i> {{ quote.bookId ? getBookTitle(quote.bookId) : 'Unspecified Book' }}
           </div>
           <div class="card-footer bg-transparent">
           <button class="btn btn-sm me-2" [ngClass]="isFavorite(quote) ? 'btn-danger' : 'btn-warning'"
