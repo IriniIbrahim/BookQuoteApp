@@ -28,7 +28,7 @@
     </ul>
 
     <div class="d-flex gap-2">
-      <span *ngIf="isLoggedIn" class="navbar-text me-2">
+      <span *ngIf="isLoggedIn" class="navbar-text me-2 btn-outline-dark">
         <i class="fa fa-user"></i> {{ username }}
       </span>
       <button *ngIf="!isLoggedIn" class="btn btn-outline-dark" routerLink="/login">
