@@ -12,18 +12,18 @@
   <div class="collapse navbar-collapse" id="mainMenu">
     <ul class="navbar-nav mx-auto text-center">
       <li class="nav-item" *ngIf="isLoggedIn">
-        <a class="nav-link" routerLink="/books"><i class="fa fa-book"></i>Books</a>
+        <a class="nav-link" routerLink="/books"><i class="fas fa-book text-primary"></i>Books</a>
       </li>
       <li class="nav-item" *ngIf="isLoggedIn">
         <a class="nav-link" routerLink="/quotes"
-          ><i class="fa-solid fa-quote-left"></i>Quotes<i class="fa-solid fa-quote-right"></i>
+          ><i class="fas fa-quote-left text-info"></i>Quotes<i class="fas fa-quote-right text-info"></i>
         </a>
       </li>
       <li class="nav-item" *ngIf="isLoggedIn">
-        <a class="nav-link" routerLink="/my-favorites"><i class="fa-solid fa-heart"></i>My Favorites</a>
+        <a class="nav-link" routerLink="/my-favorites"><i class="fas fa-heart text-danger"></i>My Favorites</a>
       </li>
       <li class="nav-item" *ngIf="isLoggedIn">
-        <a class="nav-link" routerLink="/archive"><i class="fa-solid fa-box-archive"></i>Archive</a>
+        <a class="nav-link" routerLink="/archive"><i class="fas fa-box-archive"></i>Archive</a>
       </li>
     </ul>
 
