@@ -79,7 +79,9 @@
                             <div class="mt-2" *ngIf="item.entityType === 'Quote'">
                                 <small *ngIf="parseDetails(item.details) as quote">
                                     <strong>Author:</strong> {{ quote.author }} <br />
-                                    <p class="fst-italic">{{ quote.text }}</p>
+                                    <p class="fst-italic">{{ quote.text }}</p><br />
+                                    <strong>From Book:</strong>
+                                    {{ quote.bookTitle }}
                                 </small>
                             </div>
 
