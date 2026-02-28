@@ -28,7 +28,7 @@ export class Archive implements OnInit {
     this.archiveService.getAll().subscribe({
       next: (data: ArchiveLog[]) => {
         this.allItems = data;
-        this.applyFilter(); // filter after loading
+        this.applyFilter(); 
         this.isLoading = false;
       },
       error: () => {

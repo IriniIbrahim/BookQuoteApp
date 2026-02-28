@@ -60,20 +60,21 @@ public class QuotesController : ControllerBase
 
         quote.IsArchived = true;
 
-        _context.ArchiveLogs.Add(new ArchiveLog
+        var log = new ArchiveLog
         {
             EntityType = "Quote",
             EntityId = quote.Id,
             EntityTitle = quote.Text,
             Details = JsonSerializer.Serialize(new
             {
-                quote.Text,                
-                quote.Author,
-                quote.BookId,
-            })
-        });
+                author = quote.Author,
+                bookid = quote.BookId
+    })
+        };
 
+        _context.ArchiveLogs.Add(log);
         await _context.SaveChangesAsync();
+        
         return NoContent();
     }
 }
