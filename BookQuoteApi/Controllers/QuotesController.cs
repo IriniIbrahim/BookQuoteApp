@@ -68,7 +68,8 @@ public class QuotesController : ControllerBase
             Details = JsonSerializer.Serialize(new
             {
                 quote.Text,
-                quote.BookId
+                quote.BookId,
+                quote.Author
             })
         });
 
