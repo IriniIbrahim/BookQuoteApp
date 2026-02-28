@@ -161,12 +161,6 @@ export class Quotes implements OnInit {
     }
 
 
-    // If not favorite → ADD (max 5)
-    if (ids.length >= 5) {
-      alert('You can only have up to 5 favorite quotes!');
-      return;
-    }
-
     ids.push(quote.id!);
     localStorage.setItem(storageKey, JSON.stringify(ids));
   }
