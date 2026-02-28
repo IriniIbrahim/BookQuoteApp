@@ -100,7 +100,7 @@ namespace BookQuoteApi.Migrations
                         {
                             Id = 1,
                             Author = "Steve Jobs",
-                            BookId = 0,
+                            BookId = 1,
                             IsArchived = false,
                             Text = "The only way to do great work is to love what you do."
                         },
@@ -108,7 +108,7 @@ namespace BookQuoteApi.Migrations
                         {
                             Id = 2,
                             Author = "John Lennon",
-                            BookId = 0,
+                            BookId = 1,
                             IsArchived = false,
                             Text = "Life is what happens when you're busy making other plans."
                         },
@@ -116,7 +116,7 @@ namespace BookQuoteApi.Migrations
                         {
                             Id = 3,
                             Author = "Eleanor Roosevelt",
-                            BookId = 0,
+                            BookId = 1,
                             IsArchived = false,
                             Text = "The future belongs to those who believe in the beauty of their dreams."
                         },
@@ -124,7 +124,7 @@ namespace BookQuoteApi.Migrations
                         {
                             Id = 4,
                             Author = "Aristotle",
-                            BookId = 0,
+                            BookId = 1,
                             IsArchived = false,
                             Text = "It is during our darkest moments that we must focus to see the light."
                         },
@@ -132,7 +132,7 @@ namespace BookQuoteApi.Migrations
                         {
                             Id = 5,
                             Author = "Martin Luther King Jr.",
-                            BookId = 0,
+                            BookId = 1,
                             IsArchived = false,
                             Text = "In the end, we will remember not the words of our enemies, but the silence of our friends."
                         });
